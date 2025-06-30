@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DepositMitra;
+use App\Models\InquiryDigiflash;
+use App\Models\PaymentDigiflash;
 use Illuminate\Http\Request;
 use App\Models\Perusahaan;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\Whitelist;
 
 class RouteController extends Controller
 {
@@ -14,7 +20,8 @@ class RouteController extends Controller
 
     public function indexDepositMitra()
     {
-        return view('pages.mapping_deposit.deposit_mitra.index');
+        $depositMitra = DepositMitra::with('user')->get();
+        return view('pages.mapping_deposit.deposit_mitra.index', ['depositMitra' => $depositMitra]);
     }
 
     public function indexDeposit()
@@ -24,7 +31,8 @@ class RouteController extends Controller
 
     public function indexMappingProduct()
     {
-        return view('layouts.main');
+        $products = Product::paginate(10);
+        return view('pages.mapping_product.index', ['products' => $products]);
     }
 
     public function indexPDAM()
@@ -34,23 +42,27 @@ class RouteController extends Controller
 
     public function indexMitraPDAM()
     {
-        $mitra = Perusahaan::all();
-        return view('pages.settlement.mitra.index', ['mitra' => $mitra]);
+        return view('pages.settlement.mitra.index');
     }
 
     public function indexTransaksi()
     {
-        return view('layouts.main');
+        $paymentDigiflash = PaymentDigiflash::where('message', 'Transaksi Sukses')
+            ->orWhere('message', 'Success')
+            ->paginate(10);
+        return view('pages.laporan.transaksi.index', ['paymentDigiflash' => $paymentDigiflash]);
     }
 
     public function indexUser()
     {
-        return view('layouts.main');
+        $users = User::all();
+        return view('pages.user_management.user.index', ['users' => $users]);
     }
 
     public function indexPartner()
     {
-        return view('layouts.main');
+        $mitra = Perusahaan::with('user')->get();
+        return view('pages.user_management.partner.index', ['mitra' => $mitra]);
     }
 
     public function indexRole()
@@ -65,7 +77,8 @@ class RouteController extends Controller
 
     public function indexProduct()
     {
-        return view('layouts.main');
+        $products = Product::paginate(10);
+        return view('pages.settings.product.index', ['products' => $products]);
     }
 
     public function indexType()
@@ -75,7 +88,8 @@ class RouteController extends Controller
 
     public function indexIP()
     {
-        return view('layouts.main');
+        $ips = Whitelist::all();
+        return view('pages.settings.whitelist_ip.index', ['ips' => $ips]);
     }
 
     public function indexChannel()
@@ -85,6 +99,7 @@ class RouteController extends Controller
 
     public function indexAPIPayment()
     {
-        return view('layouts.main');
+        $inquiryDigiflash = InquiryDigiflash::paginate(10);
+        return view('pages.logs.api_payment.index', ['inquiryDigiflash' => $inquiryDigiflash]);
     }
 }

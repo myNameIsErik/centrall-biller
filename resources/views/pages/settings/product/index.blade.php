@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
-@section('breadcrumb', 'Deposit Mitra')
+@section('breadcrumb', 'Produk')
 
-@section('menu', 'Deposit Mitra')
+@section('menu', 'Produk')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -14,39 +14,62 @@
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Mitra</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Saldo</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Saldo Sandbox</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Produk</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Main</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Produk</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Biaya Sistem</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Admin</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fee</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kategori</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Supplier</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($depositMitra as $dm)
+                            @foreach ($products as $product)
                             <tr>
                                 <td class="align-middle text-center text-sm">
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="mb-0 text-xs mb-0 text-center">
-                                            {{ $loop->iteration }}
+                                            {{ $loop->iteration + $products->firstItem() - 1 }}
                                         </h6>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-xs mb-0 text-center">{{ $dm->user->name ?? '-' }}</h6>
+                                        <h6 class="mb-0 text-xs mb-0 text-center">{{ $product->kode_produk }}</h6>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0 text-center">
-                                        Rp. {{ number_format($dm->saldo, 0, ',', '.') }}
-                                    </p>
+                                    <p class="text-xs font-weight-bold mb-0 text-center">{{ $product->kode_main ?? '-' }}</p>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0 text-center">
-                                        Rp. {{ number_format($dm->saldo_sandbox, 0, ',', '.') }}
-                                    </p>
+                                    <p class="text-xs font-weight-bold mb-0 text-center">{{ $product->nama_produk ?? '-' }}</p>
                                 </td>
-
+                                <td class="align-middle text-center text-sm">
+                                    <p class="text-xs font-weight-bold mb-0">{{ $product->status }}</p>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->biaya_sistem }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->harga }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->admin }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->fee }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->kategori }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->supplier }}</span>
+                                </td>
                                 <td class="align-middle text-center">
                                     <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                         Edit
@@ -56,6 +79,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-end mt-3 me-3">
+                    {{ $products->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

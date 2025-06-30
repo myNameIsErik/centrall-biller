@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
-@section('breadcrumb', 'Deposit Mitra')
+@section('breadcrumb', 'Perusahaan Mitra')
 
-@section('menu', 'Deposit Mitra')
+@section('menu', 'Perusahaan Mitra')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -14,15 +14,17 @@
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Mitra</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Saldo</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Saldo Sandbox</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Developer</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Perusahaan</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kategori</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tipe Usaha</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Alamat</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($depositMitra as $dm)
+                            @foreach ($mitra as $mt)
                             <tr>
                                 <td class="align-middle text-center text-sm">
                                     <div class="d-flex flex-column justify-content-center">
@@ -32,21 +34,28 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-xs mb-0 text-center">{{ $dm->user->name ?? '-' }}</h6>
+                                    <div class="d-flex px-3 py-1 text-center">
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-xs">{{ $mt->user->name ?? '-' }}</h6>
+                                        </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0 text-center">
-                                        Rp. {{ number_format($dm->saldo, 0, ',', '.') }}
-                                    </p>
+                                    <div class="d-flex px-3 py-1 text-center">
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-xs">{{ $mt->nama_perusahaan }}</h6>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0 text-center">
-                                        Rp. {{ number_format($dm->saldo_sandbox, 0, ',', '.') }}
-                                    </p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $mt->kategori }}</p>
                                 </td>
-
+                                <td class="align-middle text-center text-sm">
+                                    <p class="text-xs font-weight-bold mb-0">{{ $mt->tipe_usaha ?? '-' }}</p>
+                                </td>
+                                <td class="align-middle">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $mt->alamat }}</span>
+                                </td>
                                 <td class="align-middle text-center">
                                     <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                         Edit

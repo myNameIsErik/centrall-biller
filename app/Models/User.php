@@ -45,7 +45,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function perusahaan() {
+    public function perusahaan()
+    {
         return $this->hasOne(Perusahaan::class);
+    }
+
+    public function whitelist()
+    {
+        return $this->hasOne(Whitelist::class);
+    }
+
+    public function saldo()
+    {
+        return $this->hasOne(DepositMitra::class);
     }
 }

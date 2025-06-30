@@ -56,7 +56,7 @@
 
             <!-- Mapping Product -->
             <li class="nav-item mb-3">
-                <a class="nav-link d-flex align-items-center px-3" href="../pages/rtl.html">
+                <a class="nav-link d-flex align-items-center px-3" href="/mappingProduct">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-map-big text-dark text-sm opacity-10"></i>
                     </div>
@@ -114,7 +114,7 @@
                     <div id="collapseLaporan" class="accordion-collapse collapse ps-4" data-bs-parent="#sidenav-main">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/transaksi">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-chart-bar-32 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -141,7 +141,7 @@
                     <div id="collapseUserManagement" class="accordion-collapse collapse ps-4" data-bs-parent="#sidenav-main">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/user">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -149,7 +149,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/partner">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -192,7 +192,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/product">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-basket text-dark text-sm opacity-10"></i>
                                     </div>
@@ -208,7 +208,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/ip">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -243,7 +243,15 @@
                     <div id="collapseLogs" class="accordion-collapse collapse ps-4" data-bs-parent="#sidenav-main">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/apiPayment">
+                                    <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
+                                        <i class="ni ni-align-left-2 text-dark text-sm opacity-10"></i>
+                                    </div>
+                                    <span class="nav-link-text ms-1">Log Inquery</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center px-3" href="#">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-paper-diploma text-dark text-sm opacity-10"></i>
                                     </div>
