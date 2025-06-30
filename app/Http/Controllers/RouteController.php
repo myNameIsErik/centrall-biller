@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Perusahaan;
 
 class RouteController extends Controller
 {
@@ -33,7 +34,8 @@ class RouteController extends Controller
 
     public function indexMitraPDAM()
     {
-        return view('layouts.main');
+        $mitra = Perusahaan::all();
+        return view('pages.settlement.mitra.index', ['mitra' => $mitra]);
     }
 
     public function indexTransaksi()
