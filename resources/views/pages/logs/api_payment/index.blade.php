@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
-@section('breadcrumb', 'API Payment')
+@section('breadcrumb', 'Log Inquery')
 
-@section('menu', 'API Payment')
+@section('menu', 'Log Inquery')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -50,20 +50,48 @@
                                 <td>
                                     <p class="text-xs font-weight-bold mb-0 text-center">{{ $igf->status_code }}</p>
                                 </td>
-                                <td>
-                                    <div class="d-flex px-3 py-1 text-center">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-xs">{{ $igf->request_data }}</h6>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-info text-white"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalRequest{{ $loop->iteration }}">
+                                        View Request
+                                    </button>
+                                </td>
+                                <!-- Modal Request -->
+                                <div class="modal fade" id="modalRequest{{ $loop->iteration }}" tabindex="-1" aria-labelledby="modalRequestLabel{{ $loop->iteration }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalRequestLabel{{ $loop->iteration }}">Request Data</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <pre>{{ $igf->request_data }}</pre>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-success text-white"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalResponse{{ $loop->iteration }}">
+                                        View Response
+                                    </button>
                                 </td>
-                                <td>
-                                    <div class="d-flex px-3 py-1 text-center">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-xs">{{ $igf->response_data }}</h6>
+                                <!-- Modal Response -->
+                                <div class="modal fade" id="modalResponse{{ $loop->iteration }}" tabindex="-1" aria-labelledby="modalResponseLabel{{ $loop->iteration }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalResponseLabel{{ $loop->iteration }}">Response Data</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <pre>{{ $igf->response_data }}</pre>
+                                            </div>
                                         </div>
                                     </div>
-                                </td>
+                                </div>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $igf->tagihan ?? '-' }}</span>
                                 </td>

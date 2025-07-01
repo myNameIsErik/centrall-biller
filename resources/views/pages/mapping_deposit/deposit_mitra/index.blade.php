@@ -33,7 +33,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-xs mb-0 text-center">{{ $dm->user->name ?? '-' }}</h6>
+                                        <h6 class="mb-0 text-xs mb-0 text-center">{{ $dm->partner->nama_perusahaan ?? '-' }}</h6>
                                     </div>
                                 </td>
                                 <td>

@@ -16,15 +16,11 @@
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ref. ID</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama User</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status Code</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Request Data</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Response Data</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Message</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tagihan</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Admin</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fee</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Reference Code</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">IP</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
@@ -47,26 +43,6 @@
                                 <td>
                                     <p class="text-xs font-weight-bold mb-0 text-center">{{ $pgf->user }}</p>
                                 </td>
-                                <td>
-                                    <p class="text-xs font-weight-bold mb-0 text-center">{{ $pgf->status_code }}</p>
-                                </td>
-                                <td>
-                                    <div class="d-flex px-3 py-1 text-center">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-xs">{{ $pgf->request_data }}</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex px-3 py-1 text-center">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-xs">{{ $pgf->response_data }}</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $pgf->message }}</span>
-                                </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $pgf->tagihan ?? '-' }}</span>
                                 </td>
@@ -77,14 +53,16 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{ $pgf->fee ?? '-' }}</span>
                                 </td>
                                 <td class="align-middle text-center">
+                                    @if ($pgf->message === "Transaksi Sukses" || $pgf->message === "Success")
+                                    <span class="badge bg-gradient-success">Success</span>
+                                    @endif
+                                </td>
+                                <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $pgf->reference_code ?? '-' }}</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $pgf->ip ?? '-' }}</span>
-                                </td>
-                                <td class="align-middle text-center">
                                     <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                        Edit
+                                        Detail
                                     </a>
                                 </td>
                             </tr>

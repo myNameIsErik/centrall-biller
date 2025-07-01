@@ -6,7 +6,90 @@
 
 @section('content')
 <div class="container-fluid py-4">
-    <div class="row mt-4">
+    <div class="d-flex justify-content-end mb-2">
+        <button class="btn btn-icon btn-3 btn bg-gradient-info me-sm-2" data-bs-toggle="modal" data-bs-target="#addProduct" type="button">
+            <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+            <span class="btn-inner--text">Add Data</span>
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProductTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/createUser') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Inputkan Nama">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Inputkan Email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="no_hp">No HP</label>
+                                        <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Inputkan No HP">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="role">Akses Role <span class="text-danger">*</span></label>
+                                        <select class="form-control form-select" id="role" name="role">
+                                            <option selected>Pilih Role</option>
+                                            @foreach ($roles as $role)
+                                            <option value="{{ $role->nama_role }}">{{ $role->nama_role }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn bg-gradient-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-icon btn-2 btn bg-gradient-info" type="button">
+            <span class="btn-inner--icon"><i class="fas fa-sync-alt"></i></span>
+        </button>
+    </div>
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span class="alert-icon"><i class="ni ni-check-bold"></i></span>
+        <span class="alert-text"> {{ session('success') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    <div class="row mt-2">
         <div class="col-lg-12 mb-lg-0 mb-4">
             <div class="card">
                 <div class="table-responsive">
@@ -43,10 +126,10 @@
                                     <p class="text-xs font-weight-bold mb-0">{{ $user->email }}</p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <p class="text-xs font-weight-bold mb-0">{{ $user->role }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $user->role ?? '-' }}</p>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $user->no_hp }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $user->no_hp ?? '-' }}</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">

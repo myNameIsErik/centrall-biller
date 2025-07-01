@@ -79,7 +79,7 @@
                     <div id="collapseSettlement" class="accordion-collapse collapse ps-4" data-bs-parent="#sidenav-main">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/pdam">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-building text-dark text-sm opacity-10"></i>
                                     </div>
@@ -87,7 +87,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="/mitraPDAM">
+                                <a class="nav-link d-flex align-items-center px-3" href="#">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -157,7 +157,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/role">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -184,7 +184,7 @@
                     <div id="collapseSettings" class="accordion-collapse collapse ps-4" data-bs-parent="#sidenav-main">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="#">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-briefcase-24 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -200,7 +200,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="/type">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-archive-2 text-dark text-sm opacity-10"></i>
                                     </div>
@@ -216,7 +216,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center px-3" href="../pages/profile.html">
+                                <a class="nav-link d-flex align-items-center px-3" href="#">
                                     <div class="icon icon-shape icon-sm me-2 d-flex align-items-center justify-content-center">
                                         <i class="ni ni-credit-card text-dark text-sm opacity-10"></i>
                                     </div>

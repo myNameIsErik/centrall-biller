@@ -21,4 +21,9 @@ class DepositMitra extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function partner()
+    {
+        return $this->belongsTo(Perusahaan::class, 'user_id', 'id_perusahaan');
+    }
 }

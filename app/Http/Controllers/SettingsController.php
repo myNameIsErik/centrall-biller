@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,9 +26,17 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeType(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required|string|max:50',
+        ]);
+
+        ProductCategory::create([
+            'nama_kategori' => $request->nama_kategori,
+        ]);
+
+        return redirect('/type')->with('success', 'Product Type berhasil ditambahkan.');
     }
 
     /**

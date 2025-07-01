@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\DepositMitra;
 use App\Models\InquiryDigiflash;
 use App\Models\PaymentDigiflash;
+use App\Models\PDAM;
 use Illuminate\Http\Request;
 use App\Models\Perusahaan;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductList;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Whitelist;
 
@@ -26,7 +30,9 @@ class RouteController extends Controller
 
     public function indexDeposit()
     {
-        return view('pages.mapping_deposit.deposit.index');
+        $deposit = DepositMitra::with('user')->get();
+        $perusahaan = Perusahaan::all();
+        return view('pages.mapping_deposit.deposit.index', ['deposit' => $deposit, 'perusahaan' => $perusahaan]);
     }
 
     public function indexMappingProduct()
@@ -37,7 +43,8 @@ class RouteController extends Controller
 
     public function indexPDAM()
     {
-        return view('layouts.main');
+        $pdam = PDAM::all();
+        return view('pages.settlement.pdam.index', ['pdam' => $pdam]);
     }
 
     public function indexMitraPDAM()
@@ -56,7 +63,8 @@ class RouteController extends Controller
     public function indexUser()
     {
         $users = User::all();
-        return view('pages.user_management.user.index', ['users' => $users]);
+        $roles = Role::all();
+        return view('pages.user_management.user.index', ['users' => $users, 'roles' => $roles]);
     }
 
     public function indexPartner()
@@ -67,7 +75,8 @@ class RouteController extends Controller
 
     public function indexRole()
     {
-        return view('layouts.main');
+        $roles = Role::all();
+        return view('pages.user_management.role.index', ['roles' => $roles]);
     }
 
     public function indexBank()
@@ -77,13 +86,14 @@ class RouteController extends Controller
 
     public function indexProduct()
     {
-        $products = Product::paginate(10);
+        $products = ProductList::paginate(10);
         return view('pages.settings.product.index', ['products' => $products]);
     }
 
     public function indexType()
     {
-        return view('layouts.main');
+        $categories = ProductCategory::paginate(10);
+        return view('pages.settings.product_type.index', ['categories' => $categories]);
     }
 
     public function indexIP()

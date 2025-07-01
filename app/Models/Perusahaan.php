@@ -25,10 +25,27 @@ class Perusahaan extends Model
         'kabupaten',
         'kecamatan',
         'alamat',
+        'ektp_penanggung_jawab',
+        'akte_pendirian',
+        'npwp',
+        'akte_perubahan_terakhir',
+        'izin_usaha',
+        'izin_lokasi',
+        'surat_kuasa',
+        'nib',
+        'email_perusahaan',
+        'jumlah_produk',
+        'rating_mean',
+        'deposit',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'id', 'id');
+    }
+
+    public function saldo()
+    {
+        return $this->hasOne(User::class);
     }
 }

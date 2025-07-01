@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\DepositController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// index route 
 Route::get('/', [RouteController::class, 'index']);
 Route::get('/depositMitra', [RouteController::class, 'indexDepositMitra']);
 Route::get('/deposit', [RouteController::class, 'indexDeposit']);
@@ -30,3 +34,14 @@ Route::get('/type', [RouteController::class, 'indexType']);
 Route::get('/ip', [RouteController::class, 'indexIP']);
 Route::get('/channel', [RouteController::class, 'indexChannel']);
 Route::get('/apiPayment', [RouteController::class, 'indexAPIPayment']);
+
+// mapping deposit
+Route::post('/createDeposit', [DepositController::class, 'storeDeposit']);
+
+// user management
+Route::post('/createUser', [UserManagementController::class, 'storeUser']);
+Route::post('/createPartner', [UserManagementController::class, 'storePartner']);
+Route::post('/createRole', [UserManagementController::class, 'storeRole']);
+
+// settings
+Route::post('/createType', [SettingsController::class, 'storeType']);
