@@ -14,30 +14,47 @@ use App\Models\ProductList;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Whitelist;
+use Illuminate\Support\Facades\DB;
 
 class RouteController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
+        return view('auth.login');
+    }
+
+    public function indexDashboard()
+    {
+        $transactions = PaymentDigiflash::all()->count();
+        $transactionSuccess = PaymentDigiflash::where('message', 'Transaksi Sukses')
+            ->orWhere('message', 'Success')
+            ->count();
+        $mitraTransactions = DB::table('pay_digiflash')
+            ->join('users', 'pay_digiflash.user', '=', 'users.name')
+            ->where('users.role', 'Mitra')
+            ->count();
+        return view('dashboard', ['transactions' => $transactions, 'transactionSuccess' => $transactionSuccess, 'mitraTransactions' => $mitraTransactions]);
     }
 
     public function indexDepositMitra()
     {
-        $depositMitra = DepositMitra::with('user')->get();
+        $depositMitra = DepositMitra::orderBy('created_at', 'desc')
+            ->with('user')->paginate(10);
         return view('pages.mapping_deposit.deposit_mitra.index', ['depositMitra' => $depositMitra]);
     }
 
     public function indexDeposit()
     {
-        $deposit = DepositMitra::with('user')->get();
+        $deposit = DepositMitra::orderBy('created_at', 'desc')
+            ->with('user')->get();
         $perusahaan = Perusahaan::all();
         return view('pages.mapping_deposit.deposit.index', ['deposit' => $deposit, 'perusahaan' => $perusahaan]);
     }
 
     public function indexMappingProduct()
     {
-        $products = Product::paginate(10);
+        $products = Product::orderBy('created_at', 'desc')
+            ->paginate(10);
         return view('pages.mapping_product.index', ['products' => $products]);
     }
 
@@ -54,7 +71,8 @@ class RouteController extends Controller
 
     public function indexTransaksi()
     {
-        $paymentDigiflash = PaymentDigiflash::where('message', 'Transaksi Sukses')
+        $paymentDigiflash = PaymentDigiflash::orderBy('created_at', 'desc')
+            ->where('message', 'Transaksi Sukses')
             ->orWhere('message', 'Success')
             ->paginate(10);
         return view('pages.laporan.transaksi.index', ['paymentDigiflash' => $paymentDigiflash]);
@@ -69,7 +87,7 @@ class RouteController extends Controller
 
     public function indexPartner()
     {
-        $mitra = Perusahaan::with('user')->get();
+        $mitra = Perusahaan::with('user')->paginate(10);
         return view('pages.user_management.partner.index', ['mitra' => $mitra]);
     }
 
@@ -86,8 +104,11 @@ class RouteController extends Controller
 
     public function indexProduct()
     {
-        $products = ProductList::paginate(10);
-        return view('pages.settings.product.index', ['products' => $products]);
+        $products = Product::paginate(10);
+        $partners = Perusahaan::all();
+        $productLists = ProductList::all();
+        $productCategories = ProductCategory::all();
+        return view('pages.settings.product.index', ['products' => $products, 'partners' => $partners, 'productLists' => $productLists, 'productCategories' => $productCategories]);
     }
 
     public function indexType()
@@ -99,7 +120,8 @@ class RouteController extends Controller
     public function indexIP()
     {
         $ips = Whitelist::all();
-        return view('pages.settings.whitelist_ip.index', ['ips' => $ips]);
+        $partners = Perusahaan::all();
+        return view('pages.settings.whitelist_ip.index', ['ips' => $ips, 'partners' => $partners]);
     }
 
     public function indexChannel()

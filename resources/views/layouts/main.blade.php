@@ -35,19 +35,23 @@
     <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
-    <div class="min-height-300 bg-dark position-absolute w-100"></div>
+<body class="g-sidenav-show bg-gray-100">
+    <div class="min-height-300 bg-gradient-success position-absolute w-100"></div>
 
     @include('partials.sidebar')
 
-    <main class="main-content position-relative border-radius-lg ">
+    <main class="main-content position-relative d-flex flex-column min-vh-100">
         <!-- Navbar -->
 
         @include('partials.navbar')
 
         <!-- End Navbar -->
 
-        @yield('content')
+        <div class="flex-grow-1 px-4">
+            @yield('content')
+        </div>
+
+        @include('partials.footer')
 
     </main>
     <div class="fixed-plugin">

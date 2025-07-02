@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SettingsController;
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 // index route 
 Route::get('/', [RouteController::class, 'index']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+Route::get('/dasboard', [RouteController::class, 'indexDashboard'])->middleware('auth');
 Route::get('/depositMitra', [RouteController::class, 'indexDepositMitra']);
 Route::get('/deposit', [RouteController::class, 'indexDeposit']);
 Route::get('/mappingProduct', [RouteController::class, 'indexMappingProduct']);
@@ -41,7 +46,11 @@ Route::post('/createDeposit', [DepositController::class, 'storeDeposit']);
 // user management
 Route::post('/createUser', [UserManagementController::class, 'storeUser']);
 Route::post('/createPartner', [UserManagementController::class, 'storePartner']);
+Route::put('/partner/verifikasi/{id_perusahaan}', [UserManagementController::class, 'verifikasi']);
+Route::put('/partner/update/{id_perusahaan}', [UserManagementController::class, 'updatePartner']);
 Route::post('/createRole', [UserManagementController::class, 'storeRole']);
 
 // settings
+Route::post('/createProduct', [SettingsController::class, 'storeProduct']);
 Route::post('/createType', [SettingsController::class, 'storeType']);
+Route::post('/createIP', [SettingsController::class, 'storeIP']);

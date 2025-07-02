@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
-@section('breadcrumb', 'Produk')
+@section('breadcrumb', 'Product')
 
-@section('menu', 'Produk')
+@section('menu', 'Product')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -16,26 +16,115 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Mapping Product</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Product</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                <input type="text" class="form-control" value="Creative Tim" id="recipient-name">
+                        <form action="{{ url('/createProduct') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="supplier">Partner <span class="text-danger">*</span></label>
+                                        <select class="form-control form-select" id="supplier" name="supplier">
+                                            <option selected disabled>Select Partner</option>
+                                            @foreach ($partners as $partner)
+                                            <option value="{{ $partner->nama_perusahaan }}">{{ $partner->nama_perusahaan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="kategori">Supplier <span class="text-danger">*</span></label>
+                                        <select class="form-control form-select" id="kategori" name="kategori">
+                                            <option selected disabled>Select Supplier</option>
+                                            @foreach ($productCategories as $pc)
+                                            <option value="{{ $pc->kode_supplier }}">{{ $pc->kode_supplier }} - {{ $pc->nama_supplier }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nama_produk">Product <span class="text-danger">*</span></label>
+                                        <select class="form-control form-select" id="nama_produk" name="nama_produk">
+                                            <option selected disabled>Select Product</option>
+                                            @foreach ($productLists as $pl)
+                                            <option value="{{ $pl->nama_produk }}" data-kode="{{ $pl->kode_produk }}">{{ $pl->nama_produk }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="kode_produk">Kode Produk</label>
+                                        <input type="text" class="form-control" id="kode_produk" name="kode_produk" readonly>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="harga">Cost (Rp.) <span class="text-danger">*</span></label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Rp.</span>
+                                            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="harga" name="harga">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Admin Fee (Rp.) <span class="text-danger">*</span></label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Rp.</span>
+                                            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="admin" name="admin">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Partner Fee (Rp.) <span class="text-danger">*</span></label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Rp.</span>
+                                            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="fee" name="fee">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">System Fee (Rp.) <span class="text-danger">*</span></label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Rp.</span>
+                                            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="biaya_sistem" name="biaya_sistem">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Status <span class="text-danger">*</span></label>
+                                        <select class="form-control form-select" id="status" name="status">
+                                            <option value="OFF" selected>Inactive</option>
+                                            <option value="ON">Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn bg-gradient-primary">Save</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn bg-gradient-primary">Send message</button>
                     </div>
                 </div>
             </div>
@@ -53,9 +142,15 @@
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Produk</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Main</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama Produk</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Supplier</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Biaya Sistem</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Admin</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fee</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kategori</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Supplier</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
@@ -76,13 +171,35 @@
                                     </div>
                                 </td>
                                 <td>
+                                    <p class="text-xs font-weight-bold mb-0 text-center">{{ $product->kode_main ?? '-' }}</p>
+                                </td>
+                                <td>
                                     <p class="text-xs font-weight-bold mb-0 text-center">{{ $product->nama_produk ?? '-' }}</p>
                                 </td>
+                                <td class="align-middle text-center text-sm">
+                                    @if ($product->status === "ON")
+                                    <span class="badge bg-gradient-success">On</span>
+                                    @else
+                                    <span class="badge bg-gradient-danger">Off</span>
+                                    @endif
+                                </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->nama_supplier }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->biaya_sistem }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->harga }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->admin }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->fee }}</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $product->kategori }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $product->supplier }}</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
@@ -100,37 +217,13 @@
             </div>
         </div>
     </div>
-    <footer class="footer pt-3  ">
-        <div class="container-fluid">
-            <div class="row align-items-center justify-content-lg-between">
-                <div class="col-lg-6 mb-lg-0 mb-4">
-                    <div class="copyright text-center text-sm text-muted text-lg-start">
-                        © <script>
-                            document.write(new Date().getFullYear())
-                        </script>,
-                        made with <i class="fa fa-heart"></i> by
-                        <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                        for a better web.
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
+
+<script>
+    document.getElementById('nama_produk').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const kodeProduk = selectedOption.getAttribute('data-kode');
+        document.getElementById('kode_produk').value = kodeProduk ?? '';
+    });
+</script>
 @endsection

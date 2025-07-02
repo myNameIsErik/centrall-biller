@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasOne(DepositMitra::class);
     }
 
+    public function transaction()
+    {
+        return $this->hasOne(PaymentDigiflash::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

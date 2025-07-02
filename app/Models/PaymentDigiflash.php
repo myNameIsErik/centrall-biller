@@ -24,4 +24,9 @@ class PaymentDigiflash extends Model
         'reference_code',
         'ip'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user', 'id');
+    }
 }

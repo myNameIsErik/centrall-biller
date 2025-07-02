@@ -9,9 +9,11 @@ class ProductCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_list_category';
+    protected $table = 'product_supplier';
 
     protected $fillable = [
-        'nama_kategori',
+        'kode_supplier',
+        'nama_supplier',
+        'url',
     ];
 }

@@ -53,31 +53,117 @@ class UserManagementController extends Controller
     {
         $request->validate([
             'nama_perusahaan' => 'required|string|max:255',
-            'kategori' => 'nullable|string',
-            'verifikasi' => 'nullable|string',
-            'tipe_usaha' => 'nullable|string',
-            'no_hp_perusahaan' => 'nullable|string|max:20',
-            'provinsi' => 'nullable|string|max:100',
-            'kabupaten' => 'nullable|string|max:100',
-            'kecamatan' => 'nullable|string|max:100',
-            'alamat' => 'nullable|string',
-            'ektp_penanggung_jawab' => 'nullable|string',
-            'akte_pendirian' => 'nullable|string',
-            'npwp' => 'nullable|string',
-            'akte_perubahan_terakhir' => 'nullable|string',
-            'izin_usaha' => 'nullable|string',
-            'izin_lokasi' => 'nullable|string',
-            'surat_kuasa' => 'nullable|string',
-            'nib' => 'nullable|string',
-            'email_perusahaan' => 'nullable|email',
-            'jumlah_produk' => 'nullable|integer',
+            'kategori' => 'required|string',
+            'verifikasi' => 'required|string',
+            'tipe_usaha' => 'required|string',
+            'no_hp_perusahaan' => 'required|string',
+            'provinsi' => 'required|string',
+            'kabupaten' => 'required|string',
+            'kecamatan' => 'required|string',
+            'alamat' => 'required|string',
+            'email_perusahaan' => 'required|email',
+            'jumlah_produk' => 'required|integer',
             'rating_mean' => 'nullable|numeric',
-            'deposit' => 'nullable|numeric',
+            'deposit' => 'required|numeric',
+
+            // File fields
+            'ektp_penanggung_jawab' => 'nullable|file',
+            'akte_pendirian' => 'nullable|file',
+            'npwp' => 'nullable|file',
+            'akte_perubahan_terakhir' => 'nullable|file',
+            'izin_usaha' => 'nullable|file',
+            'izin_lokasi' => 'nullable|file',
+            'surat_kuasa' => 'nullable|file',
+            'nib' => 'nullable|file',
         ]);
 
-        Perusahaan::create($request->all());
+        // Upload file
+        $filePaths = [];
+        foreach (
+            [
+                'ektp_penanggung_jawab',
+                'akte_pendirian',
+                'npwp',
+                'akte_perubahan_terakhir',
+                'izin_usaha',
+                'izin_lokasi',
+                'surat_kuasa',
+                'nib',
+            ] as $fileField
+        ) {
+            if ($request->hasFile($fileField)) {
+                $filePaths[$fileField] = $request->file($fileField)->store('dokumen_mitra', 'public');
+            }
+        }
+
+        // Simpan data
+        $perusahaan = Perusahaan::create([
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'kategori' => $request->kategori,
+            'verifikasi' => $request->verifikasi,
+            'tipe_usaha' => $request->tipe_usaha,
+            'no_hp_perusahaan' => $request->no_hp_perusahaan,
+            'provinsi' => $request->provinsi,
+            'kabupaten' => $request->kabupaten,
+            'kecamatan' => $request->kecamatan,
+            'alamat' => $request->alamat,
+            'email_perusahaan' => $request->email_perusahaan,
+            'jumlah_produk' => $request->jumlah_produk,
+            'rating_mean' => $request->rating_mean ?? 0,
+            'deposit' => $request->deposit,
+
+            // File uploads
+            'ektp_penanggung_jawab' => $filePaths['ektp_penanggung_jawab'] ?? null,
+            'akte_pendirian' => $filePaths['akte_pendirian'] ?? null,
+            'npwp' => $filePaths['npwp'] ?? null,
+            'akte_perubahan_terakhir' => $filePaths['akte_perubahan_terakhir'] ?? null,
+            'izin_usaha' => $filePaths['izin_usaha'] ?? null,
+            'izin_lokasi' => $filePaths['izin_lokasi'] ?? null,
+            'surat_kuasa' => $filePaths['surat_kuasa'] ?? null,
+            'nib' => $filePaths['nib'] ?? null,
+        ]);
 
         return redirect('/partner')->with('success', 'Partner Mitra berhasil ditambahkan.');
+    }
+
+    public function verifikasi($id)
+    {
+        $mitra = Perusahaan::findOrFail($id);
+        $mitra->verifikasi = 'verified';
+
+        $mitra->save();
+        // dd($mitra->verifikasi);
+
+        return redirect('/partner')->with('success', 'Status Partner Mitra berhasil diubah.');
+    }
+
+    public function updatePartner(Request $request, $id)
+    {
+        $mitra = Perusahaan::findOrFail($id);
+
+        $data = $request->except(['_token', '_method']);
+
+        // handle file upload
+        foreach (
+            [
+                'ektp_penanggung_jawab',
+                'akte_pendirian',
+                'npwp',
+                'akte_perubahan_terakhir',
+                'izin_usaha',
+                'izin_lokasi',
+                'surat_kuasa',
+                'nib',
+            ] as $fileField
+        ) {
+            if ($request->hasFile($fileField)) {
+                $data[$fileField] = $request->file($fileField)->store('dokumen_mitra', 'public');
+            }
+        }
+
+        $mitra->update($data);
+
+        return redirect('/partner')->with('success', 'Data mitra berhasil diperbarui.');
     }
 
     public function storeRole(Request $request)
